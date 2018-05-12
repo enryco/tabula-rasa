@@ -8,8 +8,8 @@
 }
 
 .tr-app {
-  width: 667px;
-  height: 667px;
+  width: 100%;
+  height: 100%;
   background: lightgray;
   display: grid;
   grid-template: "title input" 374px "button button" auto / 69px auto;

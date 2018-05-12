@@ -1,12 +1,5 @@
 import React, { Component } from 'react'
-import faker from 'faker'
-
-const getPlaceholder = () => {
-  const reducer = (reducer, acc) => reducer + acc
-  const line = () => `${faker.name.firstName()} ${Math.round(Math.random() * 10000) / 100} €\n`
-  const rand = Math.round(Math.random() * 3 + 3)
-  return Array(rand).fill('').map(line).reduce(reducer)
-}
+import { getPlaceholder } from '../../functions'
 
 class Input extends Component {
 
