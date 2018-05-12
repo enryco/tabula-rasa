@@ -6,6 +6,7 @@
     "faker": "^4.1.0",
     "lodash": "^4.17.10",
     "react": "^16.3.2",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.3.2"
   },
   "devDependencies": {

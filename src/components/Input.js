@@ -4,14 +4,27 @@ import faker from 'faker'
 const getPlaceholder = () => {
   const reducer = (reducer, acc) => reducer + acc
   const line = () => `${faker.name.firstName()} ${Math.round(Math.random() * 10000) / 100} €\n`
-  const rand = Math.round(Math.random()*3 + 3)
+  const rand = Math.round(Math.random() * 3 + 3)
   return Array(rand).fill('').map(line).reduce(reducer)
 }
 
 class Input extends Component {
 
   state = {
-    content: ""
+    value: "",
+    placeholder: getPlaceholder()
+  }
+
+  componentDidMount() {
+
+    this.props.setData(this.state.placeholder)
+  }
+
+  handleChange = e => {
+    const value = e.target.value
+    this.setState({ value })
+    this.props.setData(value)
+
   }
 
   render() {
@@ -19,14 +32,15 @@ class Input extends Component {
     return (
       <div className="tr-input">
         <textarea
+          ref={e => this.textarea = e}
           className="tr-input__textarea"
           name="test"
           id="test"
           cols="30"
           rows="10"
-          value={this.state.content}
-          onChange={e => this.setState({ content: e.target.value })}
-          placeholder={getPlaceholder()}
+          value={this.state.value}
+          onChange={this.handleChange}
+          placeholder={this.state.placeholder}
         ></textarea>
       </div>
     )

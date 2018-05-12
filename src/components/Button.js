@@ -2,10 +2,11 @@ import React from 'react'
 
 const Button = props => {
 
-  const { text, onClick } = props
+  const { firstline, secondline, onClick } = props
   return (
     <div className="tr-button" onClick={onClick} >
-      {text}
+      <div>{firstline}</div>
+      <div>{secondline}</div>
     </div>
   )
 }
