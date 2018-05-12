@@ -27,6 +27,46 @@ const round = (number, precision) => {
   return shift(Math.round(shift(number, +precision)), -precision);
 }
 
+/**
+ *
+ */
+
+const sanitizeNumberInput = string => {
+
+  string = string.replace(/[^\d\,\.]+/g, '') //strip everything non-number format specific away
+
+  const hasDotAndCommaSeperators = Boolean(string.match(/\.+/g)) && Boolean(string.match(/\,+/g))
+  const dreamnumber = string.replace(/\.+/g, '_').replace(/\,+/g, '_')
+
+  if (!hasDotAndCommaSeperators) {
+    if (dreamnumber.split('_').length === 2) {
+      if (dreamnumber.split('_')[1].length !== 3) {
+        // do nothing and continue
+      } else {
+        if (Boolean(string.match(/\.+/g))) {
+          alert(`Interpreting ${string} as english SI style (1 234.56)`)
+          return string
+        } else {
+          alert(`Interpreting ${string} as non-english SI style (1 234,56)`)
+          return string.replace(/\,/g, '.')
+        }
+
+      }
+
+    } else {
+      // convert to plain number
+      return string.replace(/\.+/g, '').replace(/\,+/g, '')
+    }
+  }
+
+  const elements = string
+    .replace(/\.+/g, '_')
+    .replace(/\,+/g, '_')
+    .split('_')
+  const last = elements.pop()
+  return elements.reduce((acc, curva) => acc + curva) + '.' + last
+}
+
 
 /**
  * Algorithm for Calculating
@@ -48,30 +88,50 @@ export const parseAndCalculateDepts = (rawData) => {
 
   // parse data
   const rawDataSplitted = rawData.split(/\s+/g)
+  console.log(rawDataSplitted)
+
   rawDataSplitted.forEach(elem => {
 
     // check for number
-    const amount = Number(elem.replace(',', '.').replace('€', ''))
+    const elemMightBeANumber = sanitizeNumberInput(elem)
+    const amount = Number(elemMightBeANumber)
+    console.log(amount)
+
     if (amount) {
-      payed.push(amount)
-      return
+      if (names.length === payed.length) {
+        // whoops, there's another number
+        payed[payed.length - 1] = Number(String(payed[payed.length - 1]) + String(amount))
+        return
+
+      } else {
+        payed.push(amount)
+        return
+      }
     }
 
     // check for euro sign
     if (elem.match('€')) return
 
     if (elem) {
-      // else push text
-      names.push(elem)
+      if (names.length === payed.length) {
+        // push next name
+        names.push(elem)
+      } else {
+        // append to name
+        names[names.length -1] += ' ' + elem
+      }
     }
   })
+
+  console.log(names, payed)
+
 
 
   // check if data is correct
   if (names.length !== payed.length) return {
     html: '',
     text: '',
-    error: `Somethings's not right... Please check data 😬`
+    error: `Somethings's not right... Please check data 😬 make sure you use 1 000.00 or 1.000,00 notation 😏`
   }
 
 
@@ -110,14 +170,14 @@ export const parseAndCalculateDepts = (rawData) => {
 
         if (Math.abs(delta[i]) >= delta[j]) {
 
-          output(`${names[i]} 👉 ${names[j]} ${-(-delta[j])}€`)
+          output(`${names[i]} 👉 ${names[j]} ${-(-delta[j])}💰`)
 
           delta[i] = round(delta[i] + delta[j], 2)
           delta[j] = 0
 
         } else {
 
-          output(`${names[i]} 👉 ${names[j]} ${-delta[i]}€`)
+          output(`${names[i]} 👉 ${names[j]} ${-delta[i]}💰`)
 
           delta[j] = round(delta[j] + delta[i], 2)
           delta[i] = 0
