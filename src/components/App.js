@@ -34,7 +34,10 @@ class App extends Component {
       case 'start':
         return <div className="tr-app" >
           <TitleBar text="Who payed how much?" />
-          <Input setData={this.setData} />
+          <Input
+            data={this.state.data}
+            setData={this.setData}
+          />
           <Button
             firstline="🤑"
             secondline="Tabula Rasa!"
@@ -44,7 +47,7 @@ class App extends Component {
 
       case 'results':
         return <div className="tr-app" >
-          <TitleBar text="Ok cool." />
+          <TitleBar text="Ok cool. Go back." onClick={() => this.setState({ step: 'start' })} />
           <Result html={this.state.result.html} />
           <CopyToClipboard
             text={this.state.result.text}

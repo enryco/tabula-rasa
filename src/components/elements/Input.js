@@ -8,7 +8,11 @@ class Input extends Component {
   }
 
   componentDidMount() {
-    this.props.setData(this.state.value)
+    if (this.props.data) {
+      this.setState({ value: this.props.data })
+    } else {
+      this.props.setData(this.state.value)
+    }
   }
 
   updateData = value => {
