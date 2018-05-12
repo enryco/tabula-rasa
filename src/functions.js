@@ -2,7 +2,7 @@ import faker from 'faker'
 
 export const getPlaceholder = () => {
   const reducer = (reducer, acc) => reducer + acc
-  const line = () => `${faker.name.firstName()} ${Math.round(Math.random() * 10000) / 100}€\n`
+  const line = () => `  ${faker.name.firstName()} ${Math.round(Math.random() * 10000) / 100}€\n`
   const rand = Math.round(Math.random() * 3 + 3)
 
   // return line() // return just a line as some browser dosnt suppoert multi-line placeholders
