@@ -62,7 +62,7 @@ class App extends Component {
 
       case 'copied':
         return <div className="tr-app" >
-          <TitleBar text="Got to Source Code!" onClick={() => window.open("https://github.com/enryco/tabula-rasa")} />
+          <TitleBar text="See Source Code!" onClick={() => window.open("https://github.com/enryco/tabula-rasa")} />
           <Result html={'<br /><div>😌<br />☕️</div>Copied. Enjoy!'} />
           <Button
             onClick={() => this.setState({ step: 'start' })}
