@@ -87,7 +87,7 @@ const sanitizeNumberInput = string => {
  */
 export const parseAndCalculateDepts = (rawData) => {
 
-  const currencies = /\€|\$|\¥/g
+  const currencies = /€|\$|¥/g
   let currency = '🦄'
   const match = rawData.match(currencies)
   if (match) {
