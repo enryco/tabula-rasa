@@ -2,8 +2,10 @@ import faker from 'faker'
 
 export const getPlaceholder = () => {
   const reducer = (reducer, acc) => reducer + acc
-  const line = () => `${faker.name.firstName()} ${Math.round(Math.random() * 10000) / 100} €\n`
+  const line = () => `${faker.name.firstName()} ${Math.round(Math.random() * 10000) / 100}€\n`
   const rand = Math.round(Math.random() * 3 + 3)
+
+  // return line() // return just a line as some browser dosnt suppoert multi-line placeholders
   return Array(rand).fill('').map(line).reduce(reducer)
 }
 
@@ -58,9 +60,20 @@ export const parseAndCalculateDepts = (rawData) => {
     // check for euro sign
     if (elem.match('€')) return
 
-    // else push text
-    names.push(elem)
+    if (elem) {
+      // else push text
+      names.push(elem)
+    }
   })
+
+
+  // check if data is correct
+  if (names.length !== payed.length) return {
+    html: '',
+    text: '',
+    error: `Somethings's not right... Please check data 😬`
+  }
+
 
   // calc detla
   let average = payed.reduce((accumulator, currentValue) => accumulator + currentValue) / payed.length
@@ -113,5 +126,12 @@ export const parseAndCalculateDepts = (rawData) => {
     }
   }
 
-  return { html, text }
+  if (text) {
+    return { html, text }
+  }
+
+  return {
+    html: `It's all good, man!`,
+    text: 'Saul Goodman',
+  }
 }

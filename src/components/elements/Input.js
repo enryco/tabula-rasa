@@ -16,7 +16,11 @@ class Input extends Component {
   handleChange = e => {
     const value = e.target.value
     this.setState({ value })
-    this.props.setData(value)
+    if (value) {
+      this.props.setData(value)
+    } else {
+      this.props.setData(this.state.placeholder)
+    }
 
   }
 

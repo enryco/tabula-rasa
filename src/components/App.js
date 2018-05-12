@@ -25,6 +25,7 @@ class App extends Component {
 
   getResults = () => {
     const result = parseAndCalculateDepts(this.state.data)
+    if (result.error) return alert(result.error)
     this.setState({ result, step: 'results' })
   }
 
