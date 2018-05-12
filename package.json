@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "faker": "^4.1.0",
     "lodash": "^4.17.10",
     "react": "^16.3.2",
     "react-copy-to-clipboard": "^5.0.1",
@@ -20,7 +19,7 @@
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
-    "build": "npm-run-all build-css build-js && rm -fr ./build/static/**/*.map",
+    "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

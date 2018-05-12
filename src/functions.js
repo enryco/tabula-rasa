@@ -111,7 +111,6 @@ export const parseAndCalculateDepts = (rawData) => {
 
   // parse data
   const rawDataSplitted = rawData.split(/\s+/g)
-  console.log(rawDataSplitted)
 
   rawDataSplitted.forEach(elem => {
 
@@ -142,7 +141,6 @@ export const parseAndCalculateDepts = (rawData) => {
     }
   })
 
-  console.log(names, payed)
 
 
 
@@ -175,7 +173,6 @@ export const parseAndCalculateDepts = (rawData) => {
   // check sum
   let sum = 0
   delta.forEach(e => sum += e * 10)
-  console.log(sum)
   // if (sum !== 0) return output('Sums don\'t add up :/')
 
   // calculate
