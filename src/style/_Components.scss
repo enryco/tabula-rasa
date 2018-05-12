@@ -1,0 +1,57 @@
+.tr-app-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: grey;
+}
+
+.tr-app {
+  width: 667px;
+  height: 667px;
+  background: lightgray;
+  display: grid;
+  grid-template: "title input" 374px "button button" auto / 69px auto;
+}
+
+.tr-input {
+  grid-area: input;
+  width: 100%;
+  background: green;
+
+  &__textarea {
+    padding: 50px;
+    margin: 0;
+    width: calc(100% - 100px);
+    height: calc(100% - 100px);
+    text-align: right;
+    border: none;
+    resize: none;
+    font-size: 42pt;
+    font-family: 'VT323', monospace;
+  }
+}
+
+.tr-title-bar {
+  grid-area: title;
+  height: 374px;
+  width: 69px;
+  background: $yellow;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+
+  &__text {
+    width: 344px;
+    transform: rotate(-90deg);
+    transform-origin: center center 0;
+  }
+}
+
+.tr-button {
+  grid-area: button;
+  background: $yellow;
+  height: 100%;
+}
