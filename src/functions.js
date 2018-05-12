@@ -116,11 +116,10 @@ export const parseAndCalculateDepts = (rawData) => {
   rawDataSplitted.forEach(elem => {
 
     // check for number
-    const elemMightBeANumber = sanitizeNumberInput(elem)
-    const amount = Number(elemMightBeANumber)
-    console.log(amount)
+    const numberInput = sanitizeNumberInput(elem)
 
-    if (amount) {
+    if (numberInput) {
+      const amount = Number(numberInput)
       if (names.length === payed.length) {
         // whoops, there's another number
         payed[payed.length - 1] = Number(String(payed[payed.length - 1]) + String(amount))
