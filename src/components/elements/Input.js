@@ -4,24 +4,23 @@ import { getPlaceholder } from '../../functions'
 class Input extends Component {
 
   state = {
-    value: "",
-    placeholder: getPlaceholder()
+    value: getPlaceholder(),
   }
 
   componentDidMount() {
-
-    this.props.setData(this.state.placeholder)
+    this.props.setData(this.state.value)
   }
 
-  handleChange = e => {
-    const value = e.target.value
+  updateData = value => {
     this.setState({ value })
-    if (value) {
-      this.props.setData(value)
-    } else {
-      this.props.setData(this.state.placeholder)
-    }
+    this.props.setData(value)
+  }
 
+  handleBlur = e => {
+    const value = this.state.value.replace(/\n+\s+/g, '')
+    if (!value) {
+      this.updateData(getPlaceholder())
+    }
   }
 
   render() {
@@ -36,8 +35,9 @@ class Input extends Component {
           cols="30"
           rows="10"
           value={this.state.value}
-          onChange={this.handleChange}
-          placeholder={this.state.placeholder}
+          onChange={e => this.updateData(e.target.value)}
+          onFocus={() => this.textarea.select()}
+          onBlur={this.handleBlur}
         ></textarea>
       </div>
     )

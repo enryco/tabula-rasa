@@ -1,9 +1,15 @@
 import faker from 'faker'
 
 export const getPlaceholder = () => {
-  const reducer = (reducer, acc) => reducer + acc
-  const line = () => `  ${faker.name.firstName()} ${Math.round(Math.random() * 10000) / 100}€\n`
+
+  const currencies = ['€', '$', '¥']
+  const currency = currencies[Math.round(Math.random() * (currencies.length - 1))]
+
+  const line = () => `  ${faker.name.firstName()} ${Math.round(Math.random() * 100)}${currency}\n`
+
   const rand = Math.round(Math.random() * 3 + 3)
+
+  const reducer = (reducer, acc) => reducer + acc
 
   // return line() // return just a line as some browser dosnt suppoert multi-line placeholders
   return Array(rand).fill('').map(line).reduce(reducer)
@@ -73,6 +79,15 @@ const sanitizeNumberInput = string => {
  */
 export const parseAndCalculateDepts = (rawData) => {
 
+  const currencies = /\€|\$|\¥/g
+  let currency = '🦄'
+  const match = rawData.match(currencies)
+  if (match) {
+    currency = match[0]
+  }
+  rawData = rawData.replace(currencies, '')
+
+
   // initialization
   const names = []
   const payed = []
@@ -109,16 +124,13 @@ export const parseAndCalculateDepts = (rawData) => {
       }
     }
 
-    // check for euro sign
-    if (elem.match('€')) return
-
     if (elem) {
       if (names.length === payed.length) {
         // push next name
         names.push(elem)
       } else {
         // append to name
-        names[names.length -1] += ' ' + elem
+        names[names.length - 1] += ' ' + elem
       }
     }
   })
@@ -131,7 +143,7 @@ export const parseAndCalculateDepts = (rawData) => {
   if (names.length !== payed.length) return {
     html: '',
     text: '',
-    error: `Somethings's not right... Please check data 😬 make sure you use 1 000.00 or 1.000,00 notation 😏`
+    error: `Somethings's not right... Please check data 😬 \nmake sure you use 1 234.56 or 1 234,56 notation 😏`
   }
 
 
@@ -170,14 +182,14 @@ export const parseAndCalculateDepts = (rawData) => {
 
         if (Math.abs(delta[i]) >= delta[j]) {
 
-          output(`${names[i]} 👉 ${names[j]} ${-(-delta[j])}💰`)
+          output(`${names[i]} 👉 ${names[j]} ${-(-delta[j])} ${currency}`)
 
           delta[i] = round(delta[i] + delta[j], 2)
           delta[j] = 0
 
         } else {
 
-          output(`${names[i]} 👉 ${names[j]} ${-delta[i]}💰`)
+          output(`${names[i]} 👉 ${names[j]} ${-delta[i]} ${currency}`)
 
           delta[j] = round(delta[j] + delta[i], 2)
           delta[i] = 0
