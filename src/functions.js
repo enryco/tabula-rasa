@@ -1,11 +1,19 @@
-import faker from 'faker'
+// import { name as fakerName } from 'faker/locale/de'
+
+import names from './names'
+
+const getRandItem = array => {
+  if (array.length === 0) return null
+  return array[Math.round(Math.random() * (array.length - 1))]
+}
+
 
 export const getPlaceholder = () => {
 
   const currencies = ['€', '$', '¥']
-  const currency = currencies[Math.round(Math.random() * (currencies.length - 1))]
+  const currency = getRandItem(currencies)
 
-  const line = () => `  ${faker.name.firstName()} ${Math.round(Math.random() * 100)}${currency}\n`
+  const line = () => `  ${getRandItem(names)} ${Math.round(Math.random() * 100)}${currency}\n`
 
   const rand = Math.round(Math.random() * 3 + 3)
 
