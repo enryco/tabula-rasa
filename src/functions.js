@@ -33,35 +33,35 @@ const round = (number, precision) => {
 
 const sanitizeNumberInput = string => {
 
-  string = string.replace(/[^\d,.]+/g, '') //strip everything non-number format specific away
+  string = string.replace(/[^\d\,\.]+/g, '') //strip everything non-number format specific away
 
-  const hasDotAndCommaSeperators = Boolean(string.match(/.+/g)) && Boolean(string.match(/,+/g))
-  const dreamnumber = string.replace(/.+/g, '_').replace(/,+/g, '_')
+  const hasDotAndCommaSeperators = Boolean(string.match(/\.+/g)) && Boolean(string.match(/\,+/g))
+  const dreamnumber = string.replace(/\.+/g, '_').replace(/\,+/g, '_')
 
   if (!hasDotAndCommaSeperators) {
     if (dreamnumber.split('_').length === 2) {
       if (dreamnumber.split('_')[1].length !== 3) {
         // do nothing and continue
       } else {
-        if (Boolean(string.match(/.+/g))) {
+        if (Boolean(string.match(/\.+/g))) {
           alert(`Interpreting ${string} as english SI style (1 234.56)`)
           return string
         } else {
           alert(`Interpreting ${string} as non-english SI style (1 234,56)`)
-          return string.replace(/,/g, '.')
+          return string.replace(/\,/g, '.')
         }
 
       }
 
     } else {
       // convert to plain number
-      return string.replace(/.+/g, '').replace(/,+/g, '')
+      return string.replace(/\.+/g, '').replace(/\,+/g, '')
     }
   }
 
   const elements = string
-    .replace(/.+/g, '_')
-    .replace(/,+/g, '_')
+    .replace(/\.+/g, '_')
+    .replace(/\,+/g, '_')
     .split('_')
   const last = elements.pop()
   return elements.reduce((acc, curva) => acc + curva) + '.' + last
