@@ -21,6 +21,7 @@
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "remove-maps": "rm -f ./build/static/**/*.map",
+    "build-and-deploy": "npm-run-all build remove-maps && firebase deploy",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
