@@ -1,10 +1,12 @@
 .tr-app-container {
-  width: 100vw;
-  height: 100vh;
+  position: fixed;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background: grey;
+  font-size: 32px;
 }
 
 .tr-app {
@@ -12,7 +14,11 @@
   height: 100%;
   background: lightgray;
   display: grid;
-  grid-template: "title input" 374px "button button" auto / 69px auto;
+  grid-template:
+  "title input" minmax(200px, 374px)
+  "button button" auto
+  / 69px auto;
+  font-size: 1rem;
 }
 
 .tr-input {
@@ -26,7 +32,7 @@
     text-align: right;
     border: none;
     resize: none;
-    font-size: 42px;
+    font-size: 1rem;
     font-family: 'VT323', monospace;
     background: lightgrey;
     outline: none;
@@ -47,26 +53,27 @@
     width: calc(100% - 30px);
     height: calc(100% - 30px);
     text-align: center;
-    font-size: 42px;
+    font-size: 1rem;
     font-family: 'VT323', monospace;
   }
 }
 
 .tr-title-bar {
   grid-area: title;
-  height: 374px;
+  height: minmax(200px, 374px);
   width: 69px;
   background: $yellow;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  font-size: 42px;
+  font-size: 1rem;
 
   &__text {
-    width: 344px;
     transform: rotate(-90deg);
     transform-origin: center center 0;
+    text-align: center;
+    line-height: 70%;
   }
 }
 
@@ -79,5 +86,26 @@
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  font-size: 42px;
+  text-align: center;
+  font-size: 1.71rem;
+}
+
+
+
+@media screen and (max-height: 374px) {
+  .tr-app {
+    grid-template:
+    "title input button" minmax(200px, 374px)
+    / 67px 1fr 1fr;
+}
+
+.tr-input {
+
+  &__textarea {
+    font-size: 22px;
+  }
+
+}
+
+
 }

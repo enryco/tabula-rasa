@@ -14,10 +14,19 @@ class App extends Component {
     result: null,
     data: '',
     placeholder: '',
+    window: {}
   }
 
 
   componentDidMount() {
+    window.onresize = (e) => {
+      this.setState({
+        window: {
+          innerHeight: e.target.innerHeight,
+          innerWidth: e.target.innerWidth,
+        }
+      })
+    }
   }
 
   updatePlaceholder = placeholder => this.setState({ placeholder })
