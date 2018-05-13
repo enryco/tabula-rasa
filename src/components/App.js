@@ -11,7 +11,7 @@ import { parseAndCalculateDepts } from '../functions'
 class App extends Component {
 
   state = {
-    step: 'info',
+    step: 'start',
     result: null,
     data: '',
     placeholder: '',
