@@ -12,19 +12,24 @@ class App extends Component {
   state = {
     step: 'start',
     result: null,
-    data: ''
+    data: '',
+    placeholder: '',
   }
 
 
   componentDidMount() {
   }
 
+  updatePlaceholder = placeholder => this.setState({ placeholder })
+
   setData = data => {
     this.setState({ data })
   }
 
   getResults = () => {
-    const result = parseAndCalculateDepts(this.state.data)
+    const { data, placeholder } = this.state
+
+    const result = parseAndCalculateDepts(data ? data : placeholder)
     if (result.error) return alert(result.error)
     this.setState({ result, step: 'results' })
   }
@@ -37,6 +42,7 @@ class App extends Component {
           <Input
             data={this.state.data}
             setData={this.setData}
+            updatePlaceholder={this.updatePlaceholder}
           />
           <Button
             firstline="🤑"
