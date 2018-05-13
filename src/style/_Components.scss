@@ -16,7 +16,7 @@
   display: grid;
   grid-template:
   "title input" minmax(200px, 374px)
-  "button button" auto
+  "info button" auto
   / 69px auto;
   font-size: 1rem;
 }
@@ -77,6 +77,24 @@
   }
 }
 
+.tr-info-bar {
+  grid-area: info;
+  width: 69px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  background: grey;
+
+  &__text {
+    transform: rotate(-90deg);
+    transform-origin: center center 0;
+    text-align: center;
+    line-height: 70%;
+  }
+}
+
 .tr-button {
   cursor: pointer;
   grid-area: button;
@@ -107,5 +125,8 @@
 
 }
 
+.tr-info-bar {
+  display: none;
+}
 
 }
